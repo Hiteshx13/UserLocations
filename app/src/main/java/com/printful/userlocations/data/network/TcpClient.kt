@@ -59,7 +59,6 @@ class TcpClient(var listener: OnServerMessageReceived?) {
         try {
             val serverAddr =
                 InetAddress.getByName(SERVER_IP)
-            Log.d("TCP Client", "C: Connecting...")
 
             val socket =
                 Socket(serverAddr, SERVER_PORT)
@@ -78,10 +77,7 @@ class TcpClient(var listener: OnServerMessageReceived?) {
                         }
                     }
                 }
-                Log.d(
-                    "RESPONSE FROM SERVER",
-                    "S: Received Message: '$mServerMessage'"
-                )
+
             } catch (e: Exception) {
                 Log.e("TCP", "S: Error", e)
             } finally {

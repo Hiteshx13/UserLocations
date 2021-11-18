@@ -28,7 +28,9 @@ class UserTrackerRepository {
         mTcpClient?.stopClient()
     }
 
-    suspend fun sendMessage(email: String) {
-        mTcpClient?.sendMessage("$AUTHORIZE $email")
+    fun sendMessage(email: String) {
+        CoroutineScope(Main).launch {
+            mTcpClient?.sendMessage("$AUTHORIZE $email")
+        }
     }
 }

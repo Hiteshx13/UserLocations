@@ -28,8 +28,6 @@ class UserTrackerViewModel(application: Application) :
     }
 
     fun sendMessage(email: String) {
-        CoroutineScope(Dispatchers.Main).launch {
             userTrackerRepository.sendMessage(email)
-        }
     }
 }

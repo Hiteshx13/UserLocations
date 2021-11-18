@@ -173,12 +173,12 @@ class EmployeeLocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMar
             oldModel.lan = model.lan
             marker.tag = oldModel
 
-            Log.d("MARKER CLICK", "" + markerClickID)
-            val markerClicked = mapMarkers[markerClickID]
-            if (markerClicked?.isInfoWindowShown == true) {
-                markerClicked.showInfoWindow()
+            if (markerClickID.isNotEmpty()) {
+                val markerClicked = mapMarkers[markerClickID]
+                if (markerClicked?.isInfoWindowShown == true) {
+                    markerClicked.showInfoWindow()
+                }
             }
-
             animateMarker(
                 marker, LatLng(
                     model.lat.toDouble(),
