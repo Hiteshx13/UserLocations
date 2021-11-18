@@ -20,7 +20,7 @@ import com.printful.userlocations.R
 import com.printful.userlocations.data.`interface`.LatLngInterpolator
 import com.printful.userlocations.data.model.UserModel
 import com.printful.userlocations.databinding.FragmentEmployeeLocationBinding
-import com.printful.userlocations.ui.CustomInfoWindow
+import com.printful.userlocations.ui.adapter.CustomInfoWindow
 import com.printful.userlocations.ui.viewmodel.UserTrackerViewModel
 import com.printful.userlocations.utils.AUTHORIZE
 import com.printful.userlocations.utils.UPDATE
@@ -222,8 +222,5 @@ class EmployeeLocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMar
     override fun onMapReady(map: GoogleMap) {
         this.googleMap = map
         viewModel.sendMessage("$AUTHORIZE $USER_EMAIL")
-
-
-        Log.d("TCP", "sendMessage")
     }
 }

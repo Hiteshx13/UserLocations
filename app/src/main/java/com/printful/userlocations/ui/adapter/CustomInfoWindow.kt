@@ -1,4 +1,4 @@
-package com.printful.userlocations.ui
+package com.printful.userlocations.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
