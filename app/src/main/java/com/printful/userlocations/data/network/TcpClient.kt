@@ -27,7 +27,7 @@ class TcpClient(var listener: OnServerMessageReceived?) {
      *
      * @param message text entered by client
      */
-    suspend fun sendMessage(message: String) {
+    fun sendMessage(message: String) {
         val runnable = Runnable {
             if (mBufferOut != null) {
                 Log.d(TAG, "Sending: $message")

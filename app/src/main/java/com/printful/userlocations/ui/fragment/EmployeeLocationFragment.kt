@@ -35,7 +35,6 @@ class EmployeeLocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMar
     private var mapMarkers = HashMap<String?, Marker?>()
     private var listLocation: List<String>? = null
     private lateinit var userList: HashMap<String, UserModel>
-    private var isServerConnected = false
     private var markerClickID = ""
     private var USER_EMAIL = ""
 
@@ -69,7 +68,6 @@ class EmployeeLocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMar
 
     override fun onPause() {
         super.onPause()
-        isServerConnected = false
         viewModel.stopServer()
     }
 

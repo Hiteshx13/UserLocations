@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.printful.userlocations.data.repository.UserTrackerRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 
 class UserTrackerViewModel(application: Application) :
@@ -18,7 +19,7 @@ class UserTrackerViewModel(application: Application) :
     }
 
     fun startServer() {
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(IO).launch {
             userTrackerRepository.startServer(mutableResponse)
         }
     }
