@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/emailFragment">
+
+    <fragment
+        android:id="@+id/emailFragment"
+        android:name="com.printful.userlocations.ui.fragment.LoginFragment"
+        android:label="EmailFragment" >
+        <action
+            android:id="@+id/action_emailFragment_to_employeeLocationFragment"
+            app:destination="@id/employeeLocationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeeLocationFragment"
+        android:name="com.printful.userlocations.ui.fragment.EmployeeLocationFragment"
+        android:label="EmployeeLocationFragment" >
+        <argument
+            android:name="user_email"
+            app:argType="string" />
+    </fragment>
+</navigation>

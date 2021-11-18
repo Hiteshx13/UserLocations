@@ -5,18 +5,18 @@ import com.printful.userlocations.data.`interface`.OnServerMessageReceived
 import com.printful.userlocations.data.network.TcpClient
 import com.printful.userlocations.utils.AUTHORIZE
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 
 class UserTrackerRepository {
 
     var mTcpClient: TcpClient? = null
-    suspend fun startServer(  mutableResponse: MutableLiveData<String>) {
+    fun startServer(mutableResponse: MutableLiveData<String>) {
         mTcpClient =
             TcpClient(object :
                 OnServerMessageReceived {
                 override fun messageReceived(message: String?) {
-                    CoroutineScope(Dispatchers.Main).launch {
+                    CoroutineScope(Main).launch {
                         mutableResponse.value = message
                     }
                 }
@@ -27,7 +27,8 @@ class UserTrackerRepository {
     fun stopServer() {
         mTcpClient?.stopClient()
     }
-    fun sendMessage(email:String) {
+
+    suspend fun sendMessage(email: String) {
         mTcpClient?.sendMessage("$AUTHORIZE $email")
     }
 }

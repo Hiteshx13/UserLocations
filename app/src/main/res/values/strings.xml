@@ -2,5 +2,7 @@
     <string name="app_name">Locations</string>
     <string name="map_api_key">AIzaSyAvp9SJ6mZIcyxxhT2MrvhLjUrHjMGscAA</string>
     <string name="check_your_internet">Please check your internet connection</string>
-
+    <string name="enter_email">Enter email</string>
+    <string name="enter_valid_email">Please enter valid email</string>
+    <string name="proceed">Proceed</string>
 </resources>

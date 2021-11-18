@@ -1,21 +1,22 @@
 package com.printful.userlocations.data.network
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import com.printful.userlocations.data.`interface`.OnServerMessageReceived
 import com.printful.userlocations.utils.SERVER_IP
 import com.printful.userlocations.utils.SERVER_PORT
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.*
 import java.net.InetAddress
 import java.net.Socket
 
-
-
 class TcpClient(var listener: OnServerMessageReceived?) {
+
+    companion object {
+        val TAG = TcpClient::class.java.simpleName
+    }
+
     private var mServerMessage: String? = null
     private var mRun = false
     private var mBufferOut: PrintWriter? = null
@@ -26,7 +27,7 @@ class TcpClient(var listener: OnServerMessageReceived?) {
      *
      * @param message text entered by client
      */
-    fun sendMessage(message: String) {
+    suspend fun sendMessage(message: String) {
         val runnable = Runnable {
             if (mBufferOut != null) {
                 Log.d(TAG, "Sending: $message")
@@ -72,7 +73,7 @@ class TcpClient(var listener: OnServerMessageReceived?) {
                 while (mRun) {
                     mServerMessage = mBufferIn!!.readLine()
                     if (mServerMessage != null && listener != null) {
-                        CoroutineScope(Main).launch{
+                        CoroutineScope(Main).launch {
                             listener!!.messageReceived(mServerMessage)
                         }
                     }
@@ -91,12 +92,4 @@ class TcpClient(var listener: OnServerMessageReceived?) {
         }
     }
 
-
-
-
-
-    companion object {
-        val TAG = TcpClient::class.java.simpleName
-
-    }
 }
