@@ -1,4 +1,4 @@
-package com.printful.locations.`interface`
+package com.printful.userlocations.data.`interface`
 
 import com.google.android.gms.maps.model.LatLng
 import java.lang.Math.*
@@ -8,31 +8,29 @@ interface LatLngInterpolator {
 
     fun interpolate(fraction: Float, a: LatLng, b: LatLng): LatLng
     class Spherical : LatLngInterpolator {
-        /* From github.com/googlemaps/android-maps-utils */
+
         override fun interpolate(fraction: Float, from: LatLng, to: LatLng): LatLng {
-            // http://en.wikipedia.org/wiki/Slerp
-            val fromLat = Math.toRadians(from.latitude)
-            val fromLng = Math.toRadians(from.longitude)
-            val toLat = Math.toRadians(to.latitude)
-            val toLng = Math.toRadians(to.longitude)
-            val cosFromLat = Math.cos(fromLat)
-            val cosToLat = Math.cos(toLat)
-            // Computes Spherical interpolation coefficients.
+            val fromLat = toRadians(from.latitude)
+            val fromLng = toRadians(from.longitude)
+            val toLat = toRadians(to.latitude)
+            val toLng = toRadians(to.longitude)
+            val cosFromLat = cos(fromLat)
+            val cosToLat = cos(toLat)
             val angle = computeAngleBetween(fromLat, fromLng, toLat, toLng)
-            val sinAngle = Math.sin(angle)
+            val sinAngle = sin(angle)
             if (sinAngle < 1E-6) {
                 return from
             }
-            val a = Math.sin((1 - fraction) * angle) / sinAngle
-            val b = Math.sin(fraction * angle) / sinAngle
+            val a = sin((1 - fraction) * angle) / sinAngle
+            val b = sin(fraction * angle) / sinAngle
             // Converts from polar to vector and interpolate.
-            val x = a * cosFromLat * Math.cos(fromLng) + b * cosToLat * Math.cos(toLng)
-            val y = a * cosFromLat * Math.sin(fromLng) + b * cosToLat * Math.sin(toLng)
-            val z = a * Math.sin(fromLat) + b * Math.sin(toLat)
+            val x = a * cosFromLat * cos(fromLng) + b * cosToLat * cos(toLng)
+            val y = a * cosFromLat * sin(fromLng) + b * cosToLat * sin(toLng)
+            val z = a * sin(fromLat) + b * sin(toLat)
             // Converts interpolated vector back to polar.
-            val lat = Math.atan2(z, Math.sqrt(x * x + y * y))
-            val lng = Math.atan2(y, x)
-            return LatLng(Math.toDegrees(lat), Math.toDegrees(lng))
+            val lat = atan2(z, sqrt(x * x + y * y))
+            val lng = atan2(y, x)
+            return LatLng(toDegrees(lat), toDegrees(lng))
         }
 
         private fun computeAngleBetween(

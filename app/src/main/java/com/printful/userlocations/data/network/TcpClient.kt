@@ -2,6 +2,7 @@ package com.printful.userlocations.data.network
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.printful.userlocations.data.`interface`.OnServerMessageReceived
 import com.printful.userlocations.utils.SERVER_IP
 import com.printful.userlocations.utils.SERVER_PORT
 import kotlinx.coroutines.CoroutineScope
@@ -14,12 +15,11 @@ import java.net.Socket
 
 
 
-class TcpClient(var listener: OnMessageReceived?) {
+class TcpClient(var listener: OnServerMessageReceived?) {
     private var mServerMessage: String? = null
     private var mRun = false
     private var mBufferOut: PrintWriter? = null
     private var mBufferIn: BufferedReader? = null
-    var mutableResponse = MutableLiveData<String>()
 
     /**
      * Sends the message entered by client to the server
@@ -72,11 +72,9 @@ class TcpClient(var listener: OnMessageReceived?) {
                 while (mRun) {
                     mServerMessage = mBufferIn!!.readLine()
                     if (mServerMessage != null && listener != null) {
-                        //call the method messageReceived from MyActivity class
                         CoroutineScope(Main).launch{
                             listener!!.messageReceived(mServerMessage)
                         }
-
                     }
                 }
                 Log.d(
@@ -93,13 +91,9 @@ class TcpClient(var listener: OnMessageReceived?) {
         }
     }
 
-    fun updateResults(result:String?){
-        listener!!.messageReceived(result)
-    }
 
-    interface OnMessageReceived {
-        fun messageReceived(message: String?)
-    }
+
+
 
     companion object {
         val TAG = TcpClient::class.java.simpleName

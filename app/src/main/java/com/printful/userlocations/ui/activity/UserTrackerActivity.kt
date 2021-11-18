@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
-import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -23,10 +22,9 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import com.printful.locations.`interface`.LatLngInterpolator
+import com.printful.userlocations.data.`interface`.LatLngInterpolator
 import com.printful.userlocations.R
 import com.printful.userlocations.data.model.UserModel
-import com.printful.userlocations.data.network.TcpClient
 import com.printful.userlocations.databinding.ActivityMapBinding
 import com.printful.userlocations.databinding.RowInfoWindowBinding
 import com.printful.userlocations.ui.viewmodel.UserTrackerViewModel
@@ -35,7 +33,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 
-var mTcpClient: TcpClient? = null
 
 class UserTrackerActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -48,7 +45,7 @@ class UserTrackerActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private var googleMap: GoogleMap? = null
-    private var email = ""
+    private var USER_EMAIL = ""
     private lateinit var binding: ActivityMapBinding
     var mapMarkers = HashMap<String?, Marker?>()
     var isServerConnected = false
@@ -70,13 +67,20 @@ class UserTrackerActivity : AppCompatActivity(), OnMapReadyCallback {
         CoroutineScope(IO).launch { initServer() }
         setupMap()
     }
+
+    override fun onPause() {
+        super.onPause()
+        isServerConnected = false
+        viewModel.stopServer()
+    }
+
     suspend fun initServer() {
         viewModel.startServer()
     }
 
     private fun setupUI() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_map)
-        email = intent.getStringExtra(PARAM_EMAIL) ?: ""
+        USER_EMAIL = intent.getStringExtra(PARAM_EMAIL) ?: "imhr1727@gmail.com"
     }
 
     private fun setupViewModel() {
@@ -93,13 +97,6 @@ class UserTrackerActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment =
             supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         mapFragment?.getMapAsync(this@UserTrackerActivity)
-    }
-
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        isServerConnected = false
-        mTcpClient?.stopClient()
     }
 
 
@@ -229,7 +226,6 @@ class UserTrackerActivity : AppCompatActivity(), OnMapReadyCallback {
                         userList.remove(model.id.trim())
                         userList.put(model.id.trim(), tempUserModel!!)
 
-//                        userList.get(model.id.trim())?.isImageLoaded = true
                         isImageLoading = false
                         imageLoadingID = ""
 
@@ -299,7 +295,7 @@ class UserTrackerActivity : AppCompatActivity(), OnMapReadyCallback {
 
     /** update marker locations by tcp response**/
     fun updateMarkerLocation(sResponse: String) {
-        Log.d("Updating..", "" + sResponse)
+
         val response = sResponse.replace(UPDATE, "", true)
         var listUserData: List<String>? = null
         val listLocation: List<String> = response.split(";")
@@ -307,8 +303,7 @@ class UserTrackerActivity : AppCompatActivity(), OnMapReadyCallback {
             if (listLocation[i].trim().isNotEmpty()) {
 
                 listUserData = listLocation[i].split(",")
-                Log.d("update_", "" + listUserData[1] + "__" + listUserData[2])
-                addMarker(
+                 addMarker(
                     UserModel(
                         listUserData[0], //Id
                         "", //name
@@ -325,7 +320,6 @@ class UserTrackerActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap) {
         this.googleMap = map
-        viewModel.sendMessage()
-//        mTcpClient?.sendMessage("$AUTHORIZE $email")
+        viewModel.sendMessage("$AUTHORIZE $USER_EMAIL")
     }
 }

@@ -1,7 +1,5 @@
 package com.printful.userlocations.utils
 
-import android.animation.AnimatorInflater
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.location.Address
@@ -10,14 +8,12 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Handler
 import android.os.SystemClock
-import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Interpolator
 import android.widget.Toast
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
-import com.printful.locations.`interface`.LatLngInterpolator
-import com.printful.userlocations.R
+import com.printful.userlocations.data.`interface`.LatLngInterpolator
 import java.util.*
 
 
