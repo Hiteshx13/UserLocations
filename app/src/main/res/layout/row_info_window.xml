@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/_3sdp"
+        android:paddingLeft="@dimen/_3sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingEnd="@dimen/_3sdp"
+        android:paddingRight="@dimen/_3sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        android:background="@drawable/bg_infowingow">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivProfile"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:src="@drawable/ic_user"
+            />
+        <LinearLayout
+            android:id="@+id/llMain"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold"
+                tools:text="Title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:maxLines="3"
+                android:minLines="3"
+                android:textColor="@color/colorBlackLight"
+                android:textSize="@dimen/_8ssp"
+                android:textStyle="bold"
+                tools:text="Dummy text Dummy text Dummy text" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_minus6sdp"
+        android:rotation="90"
+        android:src="@drawable/ic_arrow_right"
+        android:tint="@color/colorPrimary" />
+</LinearLayout></layout>
