@@ -5,6 +5,7 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -29,25 +30,35 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navController: NavController = Navigation.findNavController(view)
         binding.btnProceed.setOnClickListener {
+            performClick(it)
+        }
 
-            val strEmail = binding.etEmail.text.toString().trim()
-            if (strEmail.isNotEmpty() &&
-                Patterns.EMAIL_ADDRESS.matcher(strEmail).matches()
-            ) {
-                if (isNetworkConnected(requireActivity().applicationContext)) {
-                    val action =
-                        LoginFragmentDirections.actionEmailFragmentToEmployeeLocationFragment(
-                            binding.etEmail.text.toString()
-                        )
-                    navController.navigate(action)
-                } else {
-                    activity?.let { it1 -> showTast(it1, getString(R.string.check_your_internet)) }
-                }
-            } else {
-                activity?.let { it1 -> showTast(it1, getString(R.string.enter_valid_email)) }
+        binding.etEmail.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                performClick(v)
             }
+            false
+        }
+    }
+
+    private fun performClick(view: View) {
+        val navController: NavController = Navigation.findNavController(view)
+        val strEmail = binding.etEmail.text.toString().trim()
+        if (strEmail.isNotEmpty() &&
+            Patterns.EMAIL_ADDRESS.matcher(strEmail).matches()
+        ) {
+            if (isNetworkConnected(requireActivity().applicationContext)) {
+                val action =
+                    LoginFragmentDirections.actionEmailFragmentToEmployeeLocationFragment(
+                        binding.etEmail.text.toString()
+                    )
+                navController.navigate(action)
+            } else {
+                activity?.let { it1 -> showTast(it1, getString(R.string.check_your_internet)) }
+            }
+        } else {
+            activity?.let { it1 -> showTast(it1, getString(R.string.enter_valid_email)) }
         }
     }
 }
