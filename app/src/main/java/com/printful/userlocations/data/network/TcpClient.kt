@@ -30,7 +30,7 @@ class TcpClient(var listener: OnServerMessageReceived?) {
     fun sendMessage(message: String) {
         val runnable = Runnable {
             if (mBufferOut != null) {
-                Log.d(TAG, "Sending: $message")
+//                Log.d(TAG, "Sending: $message")
                 mBufferOut!!.println(message)
                 mBufferOut!!.flush()
             }

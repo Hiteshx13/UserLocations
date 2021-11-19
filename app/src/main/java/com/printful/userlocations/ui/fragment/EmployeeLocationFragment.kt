@@ -1,7 +1,6 @@
 package com.printful.userlocations.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +25,9 @@ import com.printful.userlocations.utils.AUTHORIZE
 import com.printful.userlocations.utils.UPDATE
 import com.printful.userlocations.utils.USERLIST
 import com.printful.userlocations.utils.animateMarker
+import java.util.*
+import kotlin.collections.HashMap
+import kotlin.concurrent.schedule
 
 class EmployeeLocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -110,7 +112,6 @@ class EmployeeLocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMar
                         listUsers[2], //profile
                         listUsers[3], //lat
                         listUsers[4] //lan
-                        , null, false
                     )
                     userList.put(listUsers[0].trim(), model)
 
@@ -189,7 +190,6 @@ class EmployeeLocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMar
 
     /** update marker locations by tcp response**/
     private fun updateMarkerLocation(sResponse: String) {
-
         val response = sResponse.replace(UPDATE, "", true)
         var listUserData: List<String>?
         val listLocation: List<String> = response.split(";")
@@ -204,7 +204,6 @@ class EmployeeLocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMar
                         "", //profile
                         listUserData[1], //lat
                         listUserData[2] //lan
-                        , null, false
                     ), true
                 )
             }
@@ -219,6 +218,8 @@ class EmployeeLocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMar
 
     override fun onMapReady(map: GoogleMap) {
         this.googleMap = map
-        viewModel.sendMessage("$AUTHORIZE $USER_EMAIL")
+        Timer().schedule(1000) {
+            viewModel.sendMessage("$AUTHORIZE $USER_EMAIL")
+        }
     }
 }

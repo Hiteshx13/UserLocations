@@ -10,7 +10,10 @@
         android:label="EmailFragment" >
         <action
             android:id="@+id/action_emailFragment_to_employeeLocationFragment"
-            app:destination="@id/employeeLocationFragment" />
+            app:destination="@id/employeeLocationFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/emailFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/employeeLocationFragment"

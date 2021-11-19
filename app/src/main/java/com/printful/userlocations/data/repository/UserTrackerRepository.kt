@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 class UserTrackerRepository {
 
     var mTcpClient: TcpClient? = null
-    fun startServer(mutableResponse: MutableLiveData<String>) {
+     fun startServer(mutableResponse: MutableLiveData<String>) {
         mTcpClient =
             TcpClient(object :
                 OnServerMessageReceived {
@@ -33,7 +33,7 @@ class UserTrackerRepository {
     }
 
     fun sendMessage(email: String) {
-        CoroutineScope(Main).launch {
+        CoroutineScope(IO).launch {
             mTcpClient?.sendMessage("$AUTHORIZE $email")
         }
     }
