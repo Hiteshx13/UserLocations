@@ -26,7 +26,6 @@
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_25ssp" />
 
-
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
@@ -56,6 +55,5 @@
             android:text="@string/proceed"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_15ssp" />
-
     </LinearLayout>
 </layout>
