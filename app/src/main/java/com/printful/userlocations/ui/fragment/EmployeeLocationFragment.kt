@@ -20,7 +20,7 @@ import com.printful.userlocations.data.`interface`.LatLngInterpolator
 import com.printful.userlocations.data.model.UserModel
 import com.printful.userlocations.databinding.FragmentEmployeeLocationBinding
 import com.printful.userlocations.ui.adapter.CustomInfoWindow
-import com.printful.userlocations.ui.viewmodel.UserTrackerViewModel
+import com.printful.userlocations.data.viewmodel.UserTrackerViewModel
 import com.printful.userlocations.utils.AUTHORIZE
 import com.printful.userlocations.utils.UPDATE
 import com.printful.userlocations.utils.USERLIST

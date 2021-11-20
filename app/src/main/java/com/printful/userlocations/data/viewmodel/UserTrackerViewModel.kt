@@ -1,11 +1,10 @@
-package com.printful.userlocations.ui.viewmodel
+package com.printful.userlocations.data.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.printful.userlocations.data.repository.UserTrackerRepository
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 

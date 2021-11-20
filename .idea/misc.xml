@@ -3,8 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MyWork/PrintfulLocations/app/src/main/res/drawable/bg_border.xml" value="0.1203125" />
+        <entry key="..\:/MyWork/PrintfulLocations/app/src/main/res/drawable/bg_infowingow.xml" value="0.1203125" />
+        <entry key="..\:/MyWork/PrintfulLocations/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1203125" />
+        <entry key="..\:/MyWork/PrintfulLocations/app/src/main/res/drawable/progress.xml" value="0.1203125" />
         <entry key="..\:/MyWork/PrintfulLocations/app/src/main/res/layout/activity_map.xml" value="0.12856150104239056" />
-        <entry key="..\:/MyWork/PrintfulLocations/app/src/main/res/layout/row_info_window.xml" value="0.14479166666666668" />
+        <entry key="..\:/MyWork/PrintfulLocations/app/src/main/res/layout/fragment_email.xml" value="0.2" />
+        <entry key="..\:/MyWork/PrintfulLocations/app/src/main/res/layout/fragment_employee_location.xml" value="0.14764492753623187" />
+        <entry key="..\:/MyWork/PrintfulLocations/app/src/main/res/layout/fragment_login.xml" value="0.11005434782608696" />
+        <entry key="..\:/MyWork/PrintfulLocations/app/src/main/res/layout/row_info_window.xml" value="0.5" />
+        <entry key="..\:/MyWork/PrintfulLocations/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1203125" />
       </map>
     </option>
   </component>

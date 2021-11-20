@@ -12,8 +12,10 @@ import kotlinx.coroutines.launch
 class UserTrackerRepository {
 
     var mTcpClient: TcpClient? = null
+
      fun startServer(mutableResponse: MutableLiveData<String>) {
         mTcpClient =
+
             TcpClient(object :
                 OnServerMessageReceived {
                 override fun messageReceived(message: String?) {
