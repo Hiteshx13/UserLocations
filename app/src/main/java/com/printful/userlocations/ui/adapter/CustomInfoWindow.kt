@@ -51,7 +51,7 @@ internal class CustomInfoWindow(
 
     internal open class MarkerCallback(var marker: Marker?) :
         Callback {
-        fun onError() {}
+
         override fun onSuccess() {
             if (marker == null) {
                 return
@@ -60,7 +60,7 @@ internal class CustomInfoWindow(
                 return
             }
 
-            marker!!.hideInfoWindow() // Calling only showInfoWindow() throws an error
+            marker!!.hideInfoWindow() /** Calling only showInfoWindow() throws an error */
             marker!!.showInfoWindow()
         }
 

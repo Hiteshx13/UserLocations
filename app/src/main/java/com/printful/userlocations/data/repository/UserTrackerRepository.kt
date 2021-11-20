@@ -13,6 +13,9 @@ class UserTrackerRepository {
 
     var mTcpClient: TcpClient? = null
 
+    /**
+     * Initialization of TCP client.
+     */
      fun startServer(mutableResponse: MutableLiveData<String>) {
         mTcpClient =
 
@@ -20,6 +23,7 @@ class UserTrackerRepository {
                 OnServerMessageReceived {
                 override fun messageReceived(message: String?) {
                     CoroutineScope(Main).launch {
+                        /** sending server data to ViewModel*/
                         mutableResponse.value = message
                     }
                 }
@@ -36,6 +40,7 @@ class UserTrackerRepository {
 
     fun sendMessage(email: String) {
         CoroutineScope(IO).launch {
+            /** send authorization message to TCP server with email**/
             mTcpClient?.sendMessage("$AUTHORIZE $email")
         }
     }

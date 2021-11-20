@@ -13,7 +13,6 @@ import android.widget.Toast
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.printful.userlocations.data.`interface`.LatLngInterpolator
-import com.printful.userlocations.ui.fragment.LoginFragment
 import java.util.*
 
 
@@ -28,7 +27,7 @@ fun showTast(context: Context, msg: String) {
     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
 }
 
-
+/** get address by provising LatLan**/
 fun getAddressFromLatLan(
     context: Context,
     latitude: String,
@@ -46,7 +45,7 @@ fun getAddressFromLatLan(
         .getAddressLine(0)
 }
 
-
+/** Animate marker between two locations**/
 fun animateMarker(
     marker: Marker,
     finalPosition: LatLng,
@@ -76,7 +75,7 @@ fun animateMarker(
     })
 }
 
-
+/** check internet connectivity**/
 fun isNetworkConnected(context: Context): Boolean {
     val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

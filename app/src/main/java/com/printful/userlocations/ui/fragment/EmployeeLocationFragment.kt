@@ -18,9 +18,9 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.printful.userlocations.R
 import com.printful.userlocations.data.`interface`.LatLngInterpolator
 import com.printful.userlocations.data.model.UserModel
+import com.printful.userlocations.data.viewmodel.UserTrackerViewModel
 import com.printful.userlocations.databinding.FragmentEmployeeLocationBinding
 import com.printful.userlocations.ui.adapter.CustomInfoWindow
-import com.printful.userlocations.data.viewmodel.UserTrackerViewModel
 import com.printful.userlocations.utils.AUTHORIZE
 import com.printful.userlocations.utils.UPDATE
 import com.printful.userlocations.utils.USERLIST
@@ -77,12 +77,14 @@ class EmployeeLocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMar
         viewModel = ViewModelProvider(this)[UserTrackerViewModel::class.java]
     }
 
+    /** ViewModel Observer**/
     private fun setupObserver() {
         viewModel.getLocationData().observe(viewLifecycleOwner, {
             updateUI(it)
         })
     }
 
+    /** Starting TCP server**/
     private fun initServer() {
         viewModel.startServer()
     }
@@ -93,6 +95,7 @@ class EmployeeLocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMar
         mapFragment?.getMapAsync(this)
     }
 
+    /** updating User Interface with server data **/
     private fun updateUI(sResponse: String) {
         binding.progressbar.visibility = View.GONE
 
@@ -143,6 +146,7 @@ class EmployeeLocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMar
 
         val marker: Marker?
 
+        /** adding marker first time for user data**/
         if (!isUpdating) {
             googleMap?.setInfoWindowAdapter(CustomInfoWindow(layoutInflater, isUpdating))
             googleMap?.setOnMarkerClickListener(this)
@@ -166,12 +170,15 @@ class EmployeeLocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMar
             )
 
         } else {
+
+            /** updating marker with new data **/
             marker = mapMarkers[model.id.trim()]
             val oldModel: UserModel = marker?.tag as UserModel
             oldModel.lat = model.lat
             oldModel.lan = model.lan
             marker.tag = oldModel
 
+            /** updating current open infowindow data **/
             if (markerClickID.isNotEmpty()) {
                 val markerClicked = mapMarkers[markerClickID]
                 if (markerClicked?.isInfoWindowShown == true) {
@@ -185,7 +192,6 @@ class EmployeeLocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMar
                 ), LatLngInterpolator.Spherical()
             )
         }
-
     }
 
     /** update marker locations by tcp response**/
@@ -210,6 +216,7 @@ class EmployeeLocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMar
         }
     }
 
+    /** function for Map Marker click listener**/
     override fun onMarkerClick(marker: Marker): Boolean {
         val model: UserModel = marker.tag as UserModel
         markerClickID = model.id
@@ -219,6 +226,8 @@ class EmployeeLocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMar
     override fun onMapReady(map: GoogleMap) {
         this.googleMap = map
         Timer().schedule(1000) {
+
+            /** send authorization message to server with email**/
             viewModel.sendMessage("$AUTHORIZE $USER_EMAIL")
         }
     }

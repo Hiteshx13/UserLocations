@@ -31,18 +31,19 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnProceed.setOnClickListener {
-            performClick(it)
+            validateAndOpenMap(it)
         }
 
         binding.etEmail.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                performClick(v)
+                validateAndOpenMap(v)
             }
             false
         }
     }
 
-    private fun performClick(view: View) {
+    /** validate email and open Map Fragment**/
+    private fun validateAndOpenMap(view: View) {
         val navController: NavController = Navigation.findNavController(view)
         val strEmail = binding.etEmail.text.toString().trim()
         if (strEmail.isNotEmpty() &&

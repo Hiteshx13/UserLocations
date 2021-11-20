@@ -53,6 +53,9 @@ class TcpClient(var listener: OnServerMessageReceived?) {
         mServerMessage = null
     }
 
+    /**
+     * starting TCP server
+     */
     fun run() {
         mRun = true
         try {
@@ -71,19 +74,21 @@ class TcpClient(var listener: OnServerMessageReceived?) {
                 while (mRun) {
                     mServerMessage = mBufferIn!!.readLine()
                     if (mServerMessage != null && listener != null) {
+                        Log.d(TAG,"$mServerMessage")
                         CoroutineScope(Main).launch {
+                            /** sending data back to repository*/
                             listener!!.messageReceived(mServerMessage)
                         }
                     }
                 }
 
             } catch (e: Exception) {
-                Log.e("TCP", "S: Error", e)
+                Log.e(TAG, "S: Error", e)
             } finally {
                 socket.close()
             }
         } catch (e: Exception) {
-            Log.e("TCP", "C: Error", e)
+            Log.e(TAG, "C: Error", e)
         }
     }
 
