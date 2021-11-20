@@ -13,8 +13,8 @@ import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
 internal class CustomInfoWindow(
-    var inflater: LayoutInflater,
-    var isUpdating: Boolean
+    private var inflater: LayoutInflater,
+    private var isUpdating: Boolean
 ) :
     InfoWindowAdapter {
 
@@ -49,7 +49,7 @@ internal class CustomInfoWindow(
         return binding.root
     }
 
-    internal open class MarkerCallback(var marker: Marker?) :
+    internal open class MarkerCallback(private var marker: Marker?) :
         Callback {
 
         override fun onSuccess() {
