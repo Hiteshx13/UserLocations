@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class UserTrackerRepository {
 
-    var mTcpClient: TcpClient? = null
+    private var mTcpClient: TcpClient? = null
 
     /**
      * Initialization of TCP client.

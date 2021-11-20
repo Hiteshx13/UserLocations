@@ -23,14 +23,14 @@ internal class CustomInfoWindow(
     }
 
     override fun getInfoWindow(marker: Marker): View {
-        var binding = DataBindingUtil.inflate<RowInfoWindowBinding>(
+        val binding = DataBindingUtil.inflate<RowInfoWindowBinding>(
             inflater,
             R.layout.row_info_window,
             null,
             false
         )
 
-        var model: UserModel = marker.tag as UserModel
+        val model: UserModel = marker.tag as UserModel
         binding.tvAddress.text = getAddressFromLatLan(binding.tvName.context, model.lat, model.lan)
             .replace(",", "\n")
 
