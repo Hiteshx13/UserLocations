@@ -3,9 +3,8 @@ package com.printful.userlocations.data.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.printful.userlocations.data.repository.UserTrackerRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 
 class UserTrackerViewModel(application: Application) :
@@ -18,9 +17,7 @@ class UserTrackerViewModel(application: Application) :
     }
 
     fun startServer() {
-        CoroutineScope(IO).launch {
-            userTrackerRepository.startServer(mutableResponse)
-        }
+        viewModelScope.launch { userTrackerRepository.startServer(mutableResponse) }
     }
 
     fun stopServer() {
